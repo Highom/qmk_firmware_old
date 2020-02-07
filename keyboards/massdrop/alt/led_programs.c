@@ -164,14 +164,14 @@ led_setup_t leds_funkbutt[] = {   //I was raised in the hood
 };
 
 void *led_setups[] = {
-    leds_pleasuretek_s,    //0
-    leds_cyan_pinkaf_s,    //1
+    leds_teal_salmon,      //0
+    leds_teal_salmon_s,    //1
     leds_cyan_pinkaf_si,   //2
     leds_blackandwhite,    //3
     leds_rainbow_s,        //4
     leds_rainbow_ns,       //5
-    leds_teal_salmon_s,    //6
-    leds_teal_salmon,      //7
+    leds_cyan_pinkaf_s,    //6
+    leds_pleasuretek_s,    //7
     leds_yellow,           //8
     leds_red,              //9
     leds_green,            //10
