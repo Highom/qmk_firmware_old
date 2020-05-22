@@ -54,12 +54,16 @@ enum {
 
 //Tap dance enums
 enum {
-  ALT_OSL1 = 0
+  ALT_OSL1 = 0,
+  MO1_OSL2
 };
 
 int cur_dance (qk_tap_dance_state_t *state);
+
 void alt_finished (qk_tap_dance_state_t *state, void *user_data);
 void alt_reset (qk_tap_dance_state_t *state, void *user_data);
+void mo_finished (qk_tap_dance_state_t *state, void *user_data);
+void mo_reset (qk_tap_dance_state_t *state, void *user_data);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -67,15 +71,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_HOME, \
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP, \
         KC_LSHIFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSHIFT,          KC_UP,   KC_PGDN, \
-        KC_LCTL, KC_LGUI, TD(ALT_OSL1),                            KC_SPC,                             KC_RALT, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT  \
+        KC_LCTL, KC_LGUI, TD(ALT_OSL1),                            KC_SPC,                             KC_RALT,TD(MO1_OSL2),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     [1] = LAYOUT(
         KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE, \
         L_T_BR,   L_PSD,   L_BRI,   L_PSI,   _______,  _______,  _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
         L_T_GLIT, L_PTP,   L_BRD,   L_PTN,   L_SC_P,   L_T_PTD,  L_SC_N,  L_I_P,   L_I_N,   KC_MYCM, KC_CALC, _______,          L_T_GCM, KC_VOLU, \
         L_GLITSM, L_GLITD, L_T_ONF, L_GLITI, _______,  MD_BOOT,  TG_NKRO, _______, KC_MPRV, KC_MNXT, KC_MPLY, KC_F18,           KC_F16,  KC_VOLD, \
-        _______,  _______, TD(ALT_OSL1),                              KC_MPLY,                            KC_RCTL, _______, KC_F13,  KC_F14,  KC_F15  \
+        _______,  _______, TD(ALT_OSL1),                              KC_MPLY,                            KC_RCTL,TD(MO1_OSL2), KC_F13,  KC_F14,  KC_F15  \
     ),
+    [2] = LAYOUT(
+        _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_0, _______, _______, _______, _______, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______, \
+        _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______  \
+    )
     /*
     [X] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
@@ -131,8 +142,27 @@ void alt_reset (qk_tap_dance_state_t *state, void *user_data) {
   alttap_state.state = 0;
 }
 
+void mo_finished (qk_tap_dance_state_t *state, void *user_data) {
+  alttap_state.state = cur_dance(state);
+  switch (alttap_state.state) {
+    case SINGLE_TAP: 
+       set_oneshot_layer(2, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+      break;
+    case SINGLE_HOLD: layer_on(1); 
+      break;
+  }
+}
+
+void mo_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (alttap_state.state==SINGLE_HOLD) {
+    layer_off(1);
+  }
+  alttap_state.state = 0;
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [ALT_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset)
+ ,[MO1_OSL2] = ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, mo_finished, mo_reset, 275)
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
