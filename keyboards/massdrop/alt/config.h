@@ -60,6 +60,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Grave Escape*/
 #define GRAVE_ESC_CTRL_OVERRID
 
+/* One Shot Keys */
+#define ONESHOT_TAP_TOGGLE 5
+#define ONESHOT_TIMEOUT 5000
+
+/* Tap Dance */
+#define TAPPING_TERM 200
+
 /* Force boot in NKRO mode */
 //#define FORCE_NKRO
 
