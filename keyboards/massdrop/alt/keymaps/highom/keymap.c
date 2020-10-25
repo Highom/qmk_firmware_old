@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, TD(ALT_OSL1),                            KC_SPC,                             KC_RALT, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     [1] = LAYOUT(
-        KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_MUTE, \
+        KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_INS, \
         L_T_BR,   L_PSD,   L_BRI,   L_PSI,   _______,  _______,  _______, U_T_AUTO,U_T_AGCR,_______, KC_PSCR, KC_SLCK, KC_PAUS, _______, KC_END, \
         L_T_GLIT, L_PTP,   L_BRD,   L_PTN,   L_SC_P,   L_T_PTD,  L_SC_N,  L_I_P,   L_I_N,   KC_MYCM, KC_CALC, _______,          L_T_GCM, KC_VOLU, \
         L_GLITSM, L_GLITD, L_T_ONF, L_GLITI, _______,  MD_BOOT,  TG_NKRO, _______, KC_MPRV, KC_MNXT, KC_MPLY, KC_F18,           KC_F16,  KC_VOLD, \
