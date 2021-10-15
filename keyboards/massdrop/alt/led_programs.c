@@ -164,22 +164,22 @@ led_setup_t leds_funkbutt[] = {   //I was raised in the hood
 };
 
 void *led_setups[] = {
-    leds_teal_salmon,      //0
-    leds_teal_salmon_s,    //1
-    leds_cyan_pinkaf_si,   //2
-    leds_blackandwhite,    //3
-    leds_rainbow_s,        //4
-    leds_rainbow_ns,       //5
-    leds_cyan_pinkaf_s,    //6
-    leds_pleasuretek_s,    //7
-    leds_yellow,           //8
-    leds_red,              //9
-    leds_green,            //10
-    leds_blue,                   //11
-    leds_white,                  //12
-    leds_white_with_red_stripe,  //13
-    leds_black_with_red_stripe,  //14
-    leds_off,                    //15
+    leds_off,              //0
+    leds_teal_salmon,      //1
+    leds_teal_salmon_s,    //2
+    leds_cyan_pinkaf_si,   //3
+    leds_blackandwhite,    //4
+    leds_rainbow_s,        //5
+    leds_rainbow_ns,       //6
+    leds_cyan_pinkaf_s,    //7
+    leds_pleasuretek_s,    //8
+    leds_yellow,           //9
+    leds_red,              //10
+    leds_green,            //11
+    leds_blue,                   //12
+    leds_white,                  //13
+    leds_white_with_red_stripe,  //14
+    leds_black_with_red_stripe,  //15            
     leds_funkbutt                //16
 };
 
