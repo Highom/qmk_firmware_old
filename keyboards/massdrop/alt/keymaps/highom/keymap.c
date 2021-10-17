@@ -107,6 +107,28 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ALT_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset),
 };
 
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+
+  switch (keycode) {
+    case KC_TRNS:
+    case KC_NO:
+      /* Always cancel one-shot layer when another key gets pressed */
+      if (record->event.pressed && is_oneshot_layer_active())
+      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+      return true;
+    case RESET:
+      /* Don't allow reset from oneshot layer state */
+      if (record->event.pressed && is_oneshot_layer_active()){
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        return false;
+      }	
+      return true;
+    default:
+      return true;
+  }
+  return true;
+};
+
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
 #define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
